@@ -82,6 +82,33 @@ WhileStmt::~WhileStmt() {
     for (Stmt* s : body) delete s;
 }
 
+// Crea un do-while con su cuerpo y condición
+DoWhileStmt::DoWhileStmt(list<Stmt*> b, Exp* c)
+    : body(b), condicion(c) {}
+
+// Libera el cuerpo y la condición
+DoWhileStmt::~DoWhileStmt() {
+    for (Stmt* s : body) delete s;
+    delete condicion;
+}
+
+// Crea un break
+BreakStmt::BreakStmt() {}
+
+// Destructor de BreakStmt
+BreakStmt::~BreakStmt() {}
+
+// Crea un ifexp con su condición y sus dos valores posibles
+IfExp::IfExp(Exp* c, Exp* a, Exp* b)
+    : condicion(c), e1(a), e2(b) {}
+
+// Libera la condición y los dos valores
+IfExp::~IfExp() {
+    delete condicion;
+    delete e1;
+    delete e2;
+}
+
 // Crea un programa vacío
 Program::Program() {}
 

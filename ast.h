@@ -57,6 +57,17 @@ public:
     ~IdExp();
 };
 
+// Expresión condicional: ifexp(cond, e1, e2) vale e1 si cond != 0, si no e2
+class IfExp : public Exp {
+public:
+    Exp* condicion;
+    Exp* e1;
+    Exp* e2;
+    IfExp(Exp*, Exp*, Exp*);
+    int accept(Visitor* visitor);
+    ~IfExp();
+};
+
 // Clase base abstracta de todas las sentencias
 class Stmt {
 public:
@@ -102,6 +113,24 @@ public:
     WhileStmt(Exp*, list<Stmt*>);
     int accept(Visitor* visitor);
     ~WhileStmt();
+};
+
+// Sentencia de repetición: do StmtList while CExp (el cuerpo se ejecuta al menos una vez)
+class DoWhileStmt : public Stmt {
+public:
+    list<Stmt*> body;
+    Exp* condicion;
+    DoWhileStmt(list<Stmt*>, Exp*);
+    int accept(Visitor* visitor);
+    ~DoWhileStmt();
+};
+
+// Sentencia break: sale del ciclo (while o do-while) más interno
+class BreakStmt : public Stmt {
+public:
+    BreakStmt();
+    int accept(Visitor* visitor);
+    ~BreakStmt();
 };
 
 // Programa: lista de sentencias

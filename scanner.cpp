@@ -47,10 +47,12 @@ Token* Scanner::nextToken() {
         else if (lexema == "endif")    return new Token(Token::ENDIF,    input, first, current - first);
         else if (lexema == "endwhile") return new Token(Token::ENDWHILE, input, first, current - first);
         else if (lexema == "enddo")    return new Token(Token::ENDDO,    input, first, current - first);
-        else if (lexema == "else")    return new Token(Token::ELSE,     input, first, current - first);
+        else if (lexema == "else")     return new Token(Token::ELSE,     input, first, current - first);
+        else if (lexema == "break")    return new Token(Token::BREAK,    input, first, current - first);
+        else if (lexema == "ifexp")    return new Token(Token::IFEXP,    input, first, current - first);
         else                           return new Token(Token::ID,       input, first, current - first);
     }
-    else if (strchr("+/-*();=<", c)) {
+    else if (strchr("+/-*();=<,", c)) {
         switch (c) {
             case '+': token = new Token(Token::PLUS,    c); break;
             case '-': token = new Token(Token::MINUS,   c); break;
@@ -59,6 +61,7 @@ Token* Scanner::nextToken() {
             case ')': token = new Token(Token::RPAREN,  c); break;
             case '=': token = new Token(Token::ASSIGN,  c); break;
             case ';': token = new Token(Token::SEMICOL, c); break;
+            case ',': token = new Token(Token::COMMA,   c); break;
             case '*':
                 if (input[current + 1] == '*') {
                     current++;

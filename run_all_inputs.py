@@ -17,13 +17,20 @@ if result.returncode != 0:
 print("Compilación exitosa")
 
 # Carpeta de salida limpia: al final solo quedan los .s y el reporte
-input_dir = "inputs"
-output_dir = "outputs"
+# Uso: python3 run_all_inputs.py [carpeta]   (por defecto: inputs -> outputs)
+#      python3 run_all_inputs.py inputs_eval1   (-> outputs_eval1)
+import sys, re
+input_dir = sys.argv[1].rstrip("/") if len(sys.argv) > 1 else "inputs"
+output_dir = "outputs" if input_dir == "inputs" else input_dir.replace("inputs", "outputs", 1)
+if output_dir == input_dir:
+    output_dir = input_dir + "_outputs"
 shutil.rmtree(output_dir, ignore_errors=True)
 os.makedirs(output_dir)
 reporte = []
 
-for i in range(1, 6):
+numeros = sorted(int(m.group(1)) for f in os.listdir(input_dir)
+                 if (m := re.fullmatch(r"input(\d+)\.txt", f)))
+for i in numeros:
     filename = f"input{i}.txt"
     filepath = os.path.join(input_dir, filename)
 

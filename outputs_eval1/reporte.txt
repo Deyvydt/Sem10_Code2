@@ -1,0 +1,242 @@
+========================================
+input1.txt
+========================================
+Ejercicio:
+i = 1;
+total = 0;
+do
+    total = total + i * 3;
+    i = i + 1
+while i <= 4;
+print(total);
+print(i)
+
+Resultado de input1.s:
+30
+5
+
+========================================
+input2.txt
+========================================
+Ejercicio:
+a = 7;
+b = 12;
+min = ifexp(a <= b, a, b);
+max = ifexp(b <= a, a, b);
+print(min);
+print(max);
+print(ifexp(min <= 5, 100, ifexp(min <= 10, 200, 300)));
+print(ifexp(a <= 10, a * 2, b * 3) + ifexp(15 <= b, 50, 25))
+
+Resultado de input2.s:
+7
+12
+200
+39
+
+========================================
+input3.txt
+========================================
+Ejercicio:
+x = 1;
+sum = 0;
+while 1 do
+    sum = sum + x;
+    x = x + 2;
+    if 9 <= x then
+        break
+    endif;
+    print(sum)
+enddo;
+print(x);
+print(sum * 10)
+
+Resultado de input3.s:
+1
+4
+9
+9
+160
+
+========================================
+input4.txt
+========================================
+Ejercicio:
+c = 20;
+do
+    print(c);
+    c = c + 5
+while c <= 15;
+m = 1;
+while 1 do
+    m = m * 2;
+    if 16 <= m then
+        break
+    endif
+enddo;
+print(m);
+print(c + m)
+
+Resultado de input4.s:
+20
+16
+41
+
+========================================
+input5.txt
+========================================
+Ejercicio:
+row = 1;
+acc = 0;
+while row <= 3 do
+    col = 1;
+    do
+        if 3 <= col then
+            break
+        endif;
+        acc = acc + row * 10 + col;
+        col = col + 1
+    while 1;
+    row = row + 1
+enddo;
+print(acc);
+print(row);
+print(col)
+
+Resultado de input5.s:
+129
+4
+3
+
+========================================
+input6.txt
+========================================
+Ejercicio:
+k = 1;
+pos = 0;
+neg = 0;
+do
+    pos = pos + ifexp(k <= 4, k * 2, 0);
+    neg = neg + ifexp(k <= 4, 0, k);
+    if 7 <= k then
+        break
+    endif;
+    k = k + 1
+while 1;
+print(pos);
+print(neg);
+print(ifexp(pos <= neg, neg - pos, pos - neg))
+
+Resultado de input6.s:
+20
+18
+2
+
+========================================
+input7.txt
+========================================
+Ejercicio:
+v = 15;
+w = 25;
+res = 0;
+if v <= w then
+    if w <= 20 then
+        res = 1
+    else
+        res = 2
+    endif
+else
+    res = 3
+endif;
+print(res);
+if res <= 1 then
+    v = v + 100
+else
+    v = v + 200
+endif;
+print(v)
+
+Resultado de input7.s:
+2
+215
+
+========================================
+input8.txt
+========================================
+Ejercicio:
+n = 5;
+fact = 1;
+step = 0;
+while 1 <= n do
+    fact = fact * n;
+    step = step + 1;
+    n = n - 1
+enddo;
+print(fact);
+print(step);
+print(ifexp(100 <= fact, fact, 0))
+
+Resultado de input8.s:
+120
+5
+120
+
+========================================
+input9.txt
+========================================
+Ejercicio:
+idx = 1;
+sumA = 0;
+sumB = 0;
+do
+    sumA = sumA + idx;
+    if 3 <= idx then
+        sumB = sumB + idx * 10
+    else
+        sumB = sumB + idx
+    endif;
+    idx = idx + 1
+while idx <= 5;
+print(sumA);
+print(sumB);
+print(sumB - sumA)
+
+Resultado de input9.s:
+15
+123
+108
+
+========================================
+input10.txt
+========================================
+Ejercicio:
+a = 0;
+b = 1;
+count = 0;
+print(a);
+print(b);
+while 1 do
+    c = a + b;
+    a = b;
+    b = c;
+    count = count + 1;
+    print(c);
+    if 20 <= c then
+        break
+    endif
+enddo;
+print(count);
+print(ifexp(count <= 5, 999, c * 2))
+
+Resultado de input10.s:
+0
+1
+1
+2
+3
+5
+8
+13
+21
+7
+42

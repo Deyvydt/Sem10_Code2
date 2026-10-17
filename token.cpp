@@ -41,6 +41,9 @@ ostream& operator<<(ostream& outs, const Token& tok) {
         case Token::ENDWHILE: outs << "TOKEN(ENDWHILE, \"" << tok.text << "\")"; break;
         case Token::ENDDO:    outs << "TOKEN(ENDDO, \""    << tok.text << "\")"; break;
         case Token::ELSE:    outs << "TOKEN(ELSE, \""     << tok.text << "\")"; break;
+        case Token::BREAK:    outs << "TOKEN(BREAK, \""    << tok.text << "\")"; break;
+        case Token::IFEXP:    outs << "TOKEN(IFEXP, \""    << tok.text << "\")"; break;
+        case Token::COMMA:    outs << "TOKEN(COMMA, \""    << tok.text << "\")"; break;
         case Token::END:      outs << "TOKEN(END)"; break;
     }
     return outs;

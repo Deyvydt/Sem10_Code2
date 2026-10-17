@@ -33,6 +33,9 @@ public:
         ENDWHILE,
         ENDDO,
         ELSE,
+        BREAK,
+        IFEXP,
+        COMMA,
         END
     };
 

@@ -71,7 +71,12 @@ int main(int argc, const char* argv[]) {
         return 1;
     }
     GencodeVisitor code(outS);
-    code.gencode(ast);
+    try {
+        code.gencode(ast);
+    } catch (const std::exception& e) {
+        cerr << e.what() << endl;
+        return 1;
+    }
     outS.close();
     cout << "Codigo generado en " << archivoS << endl;
 

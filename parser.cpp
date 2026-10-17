@@ -80,6 +80,8 @@ list<Stmt*> Parser::parseStmtList() {
 // Stmt ::= id '=' CExp | print '(' CExp ')'
 //        | if CExp then StmtList [ else StmtList ] endif
 //        | while CExp do StmtList enddo
+//        | do StmtList while CExp
+//        | break
 Stmt* Parser::parseStmt() {
     Exp* e;
     if (match(Token::ID)) {
@@ -119,6 +121,17 @@ Stmt* Parser::parseStmt() {
             throw runtime_error("Error sintáctico: se esperaba 'enddo'");
         }
         return new WhileStmt(e, body);
+    }
+    else if (match(Token::DO)) {
+        list<Stmt*> body = parseStmtList();
+        if (!match(Token::WHILE)) {
+            throw runtime_error("Error sintáctico: se esperaba 'while'");
+        }
+        e = parseCExp();
+        return new DoWhileStmt(body, e);
+    }
+    else if (match(Token::BREAK)) {
+        return new BreakStmt();
     }
     else {
         throw runtime_error("Error sintáctico");
@@ -179,7 +192,7 @@ Exp* Parser::parseTerm() {
     return l;
 }
 
-// factor ::= number | '(' CExp ')' | id
+// factor ::= number | '(' CExp ')' | id | ifexp '(' CExp ',' CExp ',' CExp ')'
 Exp* Parser::parseFactor() {
     if (match(Token::NUM)) {
         return new NumberExp(stoi(previous->text));
@@ -191,6 +204,16 @@ Exp* Parser::parseFactor() {
     }
     else if (match(Token::ID)) {
         return new IdExp(previous->text);
+    }
+    else if (match(Token::IFEXP)) {
+        if (!match(Token::LPAREN)) throw runtime_error("Error sintáctico: se esperaba '(' después de ifexp");
+        Exp* c = parseCExp();
+        if (!match(Token::COMMA)) throw runtime_error("Error sintáctico: se esperaba ','");
+        Exp* a = parseCExp();
+        if (!match(Token::COMMA)) throw runtime_error("Error sintáctico: se esperaba ','");
+        Exp* b = parseCExp();
+        if (!match(Token::RPAREN)) throw runtime_error("Error sintáctico: se esperaba ')'");
+        return new IfExp(c, a, b);
     }
     else {
         throw runtime_error("Error sintáctico");
